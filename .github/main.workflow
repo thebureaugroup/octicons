@@ -38,7 +38,7 @@ action "Export SVG from Figma" {
     "FIGMA_TOKEN"
   ]
   env = {
-    "FIGMA_FILE_URL" = "https://www.figma.com/file/FP7lqd1V00LUaT5zvdklkkZr/Octicons"
+    "FIGMA_FILE_URL" = "https://www.figma.com/file/MRS8MTkv2RlI7YqzVi91wC/Octicons-Copy"
   }
   args = [
     "format=svg",
