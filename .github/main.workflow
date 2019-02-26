@@ -28,7 +28,7 @@ action "Test" {
 }
 
 action "Export SVG from Figma" {
-  uses = "./.github/actions/figma"
+  uses = "primer/figma-action@refactor"
   secrets = [
     "FIGMA_TOKEN"
   ]
