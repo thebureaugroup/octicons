@@ -5,7 +5,6 @@ const Figma = require('figma-js')
 const {FIGMA_TOKEN, FIGMA_FILE_URL} = process.env
 const PQueue = require('p-queue')
 
-
 const options = {
   format: 'jpg',
   outputDir: './build/',
@@ -15,6 +14,7 @@ const options = {
 for(const arg of process.argv.slice(2)) {
   const [param, value] = arg.split('=')
   if(options[param]) {
+
     options[param] = value
   }
 }
@@ -25,7 +25,7 @@ if(!FIGMA_TOKEN) {
 
 const client = Figma.Client({
   personalAccessToken: FIGMA_TOKEN
-});
+})
 
 // Fail if there's no figma file key
 let fileId = null
@@ -89,8 +89,9 @@ client.file(fileId)
     })
   })
   .then(components => {
-    writeFile(resolve(options.outputDir, 'data.json'), JSON.stringify(components), 'utf8')
-    return components
+    return ensureDir(join(options.outputDir))
+      .then(() => writeFile(resolve(options.outputDir, 'data.json'), JSON.stringify(components), 'utf8'))
+      .then(() => components)
   })
   .then(components => {
     const contentTypes = {
@@ -112,8 +113,7 @@ client.file(fileId)
     }))
   })
   .catch(error => {
-    console.log(`Error fetching components from Figma: ${error}`)
-    process.exitCode = 1
+    throw Error(`Error fetching components from Figma: ${error}`)
   })
 
 function queueTasks(tasks, options) {

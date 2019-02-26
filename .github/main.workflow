@@ -37,7 +37,7 @@ action "Export SVG from Figma" {
   }
   args = [
     "format=svg",
-    "output=./lib/build"
+    "outputDir=./lib/build"
   ]
 }
 
