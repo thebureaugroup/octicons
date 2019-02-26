@@ -1,11 +1,7 @@
 workflow "Octicons" {
   on = "push"
   resolves = [
-    "Build & Deploy node.js",
-    "Build & Deploy react",
-    "Build & Deploy rubygem",
-    "Build & Deploy rails helper",
-    "Build & Deploy jekyll plugin"
+    "Export SVG from Figma"
   ]
 }
 
@@ -32,8 +28,7 @@ action "Test" {
 }
 
 action "Export SVG from Figma" {
-  needs = ["Version"]
-  uses = "primer/figma-action@master"
+  uses = "./.github/actions/figma"
   secrets = [
     "FIGMA_TOKEN"
   ]
